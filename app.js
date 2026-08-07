@@ -70,7 +70,8 @@
     window.requestAnimationFrame(() => {
       const heading = app.querySelector("[data-focus-heading]");
       heading?.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     });
   }
 
@@ -294,6 +295,7 @@
   }
 
   function render({ focus = false } = {}) {
+    document.body.dataset.view = state.view;
     if (state.view === "intro") {
       renderIntro();
     } else if (state.view === "question") {

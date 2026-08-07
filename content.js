@@ -190,7 +190,7 @@
       gallery: {
         title: "Gallery & Institutional Career",
         shortTitle: "Gallery & Institutional",
-        accent: "cobalt",
+        accent: "blue",
         videoEmbedUrl: "",
         description:
           "Your strongest next direction is to build thoughtful, sustained relationships with galleries, curators, and arts institutions.",
@@ -212,7 +212,7 @@
       collector: {
         title: "Collector-Led Studio",
         shortTitle: "Collector-Led Studio",
-        accent: "coral",
+        accent: "red",
         videoEmbedUrl: "",
         description:
           "Your strongest next direction is to build a direct, human connection between your studio practice and the people who want to live with your work.",
@@ -234,7 +234,7 @@
       funded: {
         title: "Funded Project Practice",
         shortTitle: "Funded Projects",
-        accent: "gold",
+        accent: "amber",
         videoEmbedUrl: "",
         description:
           "Your strongest next direction is to turn a compelling artistic idea into a clear project that others can understand and support.",
@@ -257,7 +257,7 @@
       independent: {
         title: "Independent Visibility Practice",
         shortTitle: "Independent Visibility",
-        accent: "violet",
+        accent: "green",
         videoEmbedUrl: "",
         description:
           "Your strongest next direction is to create momentum on your own terms through a clear public voice, consistent sharing, and self-directed opportunities.",
