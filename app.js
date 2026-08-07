@@ -83,10 +83,6 @@
           <p class="eyebrow">${escapeHtml(intro.eyebrow)}</p>
           <h1 data-focus-heading tabindex="-1">${escapeHtml(intro.title)}</h1>
           <p class="lede">${escapeHtml(intro.description)}</p>
-          <div class="reassurance">
-            <span aria-hidden="true">✦</span>
-            <p>${escapeHtml(intro.reassurance)}</p>
-          </div>
           <div class="intro-actions">
             <button class="button button-primary" type="button" data-action="start">
               Find my path
@@ -97,7 +93,7 @@
         </section>
 
         <aside class="path-preview" aria-label="Four possible career paths">
-          <p class="preview-label">Four paths. One place to begin.</p>
+          <p class="preview-label">Four career paths</p>
           <ol>
             ${content.pathOrder
               .map((pathId, index) => {
@@ -111,7 +107,6 @@
               })
               .join("")}
           </ol>
-          <p class="preview-footnote">A direction for now—not a permanent label.</p>
         </aside>
       </div>
     `;
@@ -147,7 +142,7 @@
             <legend data-focus-heading tabindex="-1" class="question-title">
               ${escapeHtml(question.prompt)}
             </legend>
-            <p class="question-hint">Choose the answer that feels closest right now.</p>
+            <p class="question-hint">Select one answer.</p>
             <div class="answer-grid">
               ${question.answers
                 .map(
@@ -224,7 +219,7 @@
         <header class="result-hero">
           <div class="result-kicker">
             <span class="result-symbol" aria-hidden="true">✦</span>
-            <p>Your strongest path for your next chapter</p>
+            <p>Your recommended career path</p>
           </div>
           <h1 data-focus-heading tabindex="-1">${escapeHtml(path.title)}</h1>
           <p class="result-description">${escapeHtml(path.description)}</p>
@@ -234,7 +229,7 @@
           ${renderVideo(path)}
           <section class="fit-card" aria-labelledby="why-heading">
             <p class="section-number">01 / Your direction</p>
-            <h2 id="why-heading">Why this may fit right now</h2>
+            <h2 id="why-heading">Why this path fits your answers</h2>
             <p>${escapeHtml(path.why)}</p>
             <ul>
               ${path.takeaways
@@ -250,7 +245,6 @@
               <p class="section-number">02 / Your Praxis roadmap</p>
               <h2 id="roadmap-heading">Take these courses in order</h2>
             </div>
-            <p>Each step prepares you for the next. Move at a pace you can sustain.</p>
           </div>
 
           <ol class="course-roadmap" style="--course-count: ${path.courses.length}">
@@ -282,7 +276,6 @@
         </section>
 
         <footer class="result-footer">
-          <p>This result is a place to begin, not a permanent label. Your practice can grow across more than one path.</p>
           <button class="button button-quiet" type="button" data-action="restart">
             <span aria-hidden="true">↺</span>
             Retake the quiz
@@ -291,7 +284,7 @@
       </article>
     `;
 
-    announce(`Your strongest path is ${path.title}.`);
+    announce(`Your recommended path is ${path.title}.`);
   }
 
   function render({ focus = false } = {}) {

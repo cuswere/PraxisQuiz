@@ -19,9 +19,7 @@
       eyebrow: "A four-minute Praxis assessment",
       title: "What kind of career path is right for you?",
       description:
-        "Your art practice is personal. Your next steps can be practical. Answer seven questions to find the strongest path for your next chapter—and the Praxis courses to take in order.",
-      reassurance:
-        "Choose what feels closest right now. You do not need to have your career figured out.",
+        "Answer seven questions to identify your career path and get a sequenced Praxis course roadmap.",
     },
     questions: [
       {
@@ -96,7 +94,7 @@
       {
         id: "q4",
         weight: 2,
-        prompt: "What do I have the strongest foundation for right now?",
+        prompt: "What foundation is strongest in my practice?",
         answers: [
           {
             path: "funded",
@@ -112,7 +110,7 @@
           },
           {
             path: "collector",
-            label: "Work that could be sold or commissioned.",
+            label: "Work ready to sell or develop into commissions.",
           },
         ],
       },
@@ -193,9 +191,9 @@
         accent: "blue",
         videoEmbedUrl: "",
         description:
-          "Your strongest next direction is to build thoughtful, sustained relationships with galleries, curators, and arts institutions.",
+          "Build sustained relationships with galleries, curators, and arts institutions.",
         why:
-          "You appear ready to shape your work into a clear professional presentation and place it in front of the people who organize exhibitions and programs. This path is less about waiting to be discovered and more about focused research, strong materials, and respectful follow-through.",
+          "This path centers on a clear professional presentation, targeted research, direct outreach, and long-term relationships with the people who organize exhibitions and programs.",
         takeaways: [
           "Clarify how you present your work",
           "Build a focused list of institutions and contacts",
@@ -215,9 +213,9 @@
         accent: "red",
         videoEmbedUrl: "",
         description:
-          "Your strongest next direction is to build a direct, human connection between your studio practice and the people who want to live with your work.",
+          "Build direct relationships between your studio practice and the people who want to collect your work.",
         why:
-          "Your answers suggest that visible momentum, clearer offers, and regular contact with interested people could make the biggest difference now. This path builds a sustainable audience without asking you to become someone other than the artist you already are.",
+          "This path combines a consistent public presence, clear offers, and regular follow-up to turn interest in the work into purchases and commissions.",
         takeaways: [
           "Create a consistent public presence",
           "Make it easy for interested people to stay connected",
@@ -237,9 +235,9 @@
         accent: "amber",
         videoEmbedUrl: "",
         description:
-          "Your strongest next direction is to turn a compelling artistic idea into a clear project that others can understand and support.",
+          "Turn a defined artistic idea into a project that funders, patrons, and sponsors can support.",
         why:
-          "You seem energized by making something specific happen. Grants, patrons, sponsors, and crowdfunding are different tools, but they share the same foundation: a vivid proposal, a realistic plan, and an invitation for others to participate in the vision.",
+          "Grants, patrons, sponsors, and crowdfunding depend on the same foundation: a clear proposal, a realistic plan, a credible budget, and a specific request.",
         takeaways: [
           "Turn the idea into a concrete plan and budget",
           "Tell the project story in language supporters understand",
@@ -260,9 +258,9 @@
         accent: "green",
         videoEmbedUrl: "",
         description:
-          "Your strongest next direction is to create momentum on your own terms through a clear public voice, consistent sharing, and self-directed opportunities.",
+          "Build public visibility through clear positioning, consistent communication, and self-directed opportunities.",
         why:
-          "Your practice may not fit neatly into a single conventional route—and that can be an advantage. The immediate opportunity is to make your ideas easier to encounter, create your own reasons to show up, and build recognition through steady public action.",
+          "This path uses a defined public message, consistent publishing, collaboration, and self-produced opportunities to build recognition outside a gallery-first or sales-first model.",
         takeaways: [
           "Define a memorable public story for the work",
           "Build consistency without flattening experimentation",

@@ -107,7 +107,7 @@ body[data-view="question"] .quiz-shell {
   justify-content: space-between;
   padding: 6px 10px;
   border-bottom: 1px solid var(--line);
-  background: var(--muted);
+  background: var(--ink);
 }
 
 .praxis-wordmark {
@@ -231,29 +231,6 @@ h2 {
   color: #393939;
   font-size: clamp(0.94rem, 1.25vw, 1.05rem);
   line-height: 1.55;
-}
-
-.reassurance {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  max-width: 620px;
-  margin-top: 1rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--soft-line);
-}
-
-.reassurance > span {
-  color: var(--red);
-}
-
-.reassurance p {
-  margin: 0;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: 0.9rem;
-  font-style: italic;
-  line-height: 1.4;
 }
 
 .intro-actions,
@@ -398,16 +375,6 @@ h2 {
 
 .preview-green {
   color: var(--green);
-}
-
-.preview-footnote {
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: 0.82rem;
-  font-style: italic;
 }
 
 .question-view {
@@ -835,20 +802,10 @@ h2 {
 .result-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 2rem;
   padding: 1.6rem clamp(2rem, 5vw, 5rem);
   border-top: 1px solid var(--line);
-}
-
-.result-footer p {
-  max-width: 650px;
-  margin: 0;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: 0.84rem;
-  font-style: italic;
-  line-height: 1.45;
 }
 
 .view-enter {
