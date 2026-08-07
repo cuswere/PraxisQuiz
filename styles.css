@@ -5,7 +5,7 @@
   --paper: #ffffff;
   --ink: #101010;
   --muted: #565656;
-  --line: #1a1a1a;
+  --line: #101010;
   --soft-line: #c8c8c3;
   --blue: #1010ff;
   --praxis-blue: #1f9cf0;
@@ -26,7 +26,7 @@
 
 html {
   min-height: 100%;
-  background: var(--face-light);
+  background: var(--field);
   color: var(--ink);
   font-family: var(--sans);
   scrollbar-gutter: stable both-edges;
@@ -88,12 +88,23 @@ body[data-view="question"] .page-shell {
 }
 
 .quiz-shell {
+  position: relative;
   display: flex;
   overflow: hidden;
   min-height: min(718px, calc(100svh - 32px));
   flex-direction: column;
-  border: 1px solid var(--line);
   background: var(--paper);
+}
+
+/* The shell frame is drawn as an overlay rather than a border so the --field
+   brandbar elements can sit on top of it and notch it out at the page edges. */
+.quiz-shell::before {
+  position: absolute;
+  z-index: 5;
+  border: 1px solid var(--ink);
+  content: "";
+  inset: 0;
+  pointer-events: none;
 }
 
 body[data-view="intro"] .quiz-shell,
@@ -114,11 +125,14 @@ body[data-view="question"] .quiz-shell {
 }
 
 .praxis-wordmark {
+  position: relative;
+  z-index: 6;
   display: inline-flex;
   align-self: stretch;
   align-items: center;
   padding-inline: 9px;
-  background: var(--paper);
+  border-right: 1px solid var(--ink);
+  background: var(--field);
   color: var(--ink);
   font-size: 1.05rem;
   font-weight: 600;
@@ -136,6 +150,7 @@ body[data-view="question"] .quiz-shell {
 
 .praxis-mark {
   padding-inline: 4px;
+  border: 1px solid var(--praxis-blue);
   border-radius: 4px 0 0 4px;
   background: var(--paper);
   color: var(--praxis-blue);
@@ -148,11 +163,10 @@ body[data-view="question"] .quiz-shell {
 .quiz-mark {
   padding-inline: 6px;
   border: 0;
-  background: var(--face);
-  color: var(--paper);
+  color: var(--ink);
   font-family: var(--mono);
   font-size: 0.85rem;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: 0;
 }
 
@@ -177,10 +191,15 @@ body[data-view="question"] .quiz-shell {
 }
 
 .brandbar-note {
+  position: relative;
+  z-index: 6;
+  align-self: flex-start;
+  padding: 4px;
+  border: 1px solid var(--ink);
+  background: var(--field);
   color: var(--ink);
-  font-size: 0.67rem;
+  font-size: 0.85rem;
   letter-spacing: 0.08em;
-  padding-right: 9px;
 }
 
 #app {
@@ -206,7 +225,7 @@ body[data-view="question"] .quiz-shell {
 .section-number,
 .preview-label {
   margin: 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
 }
@@ -219,10 +238,10 @@ body[data-view="question"] .quiz-shell {
 }
 
 .eyebrow::before {
-  width: 26px;
-  height: 2px;
-  background: currentColor;
-  content: "";
+  content: "+";
+  font-size: 1.3em;
+  font-weight: 400;
+  line-height: 1;
 }
 
 h1,
@@ -249,7 +268,7 @@ h2 {
 .lede {
   max-width: 670px;
   margin: 1.25rem 0 0;
-  color: #393939;
+  color: var(--ink);
   font-size: clamp(0.94rem, 1.25vw, 1.05rem);
   line-height: 1.55;
 }
@@ -264,7 +283,7 @@ h2 {
 }
 
 .duration {
-  color: var(--muted);
+  color: var(--ink);
   font-family: var(--mono);
   font-size: 0.7rem;
 }
@@ -277,12 +296,12 @@ h2 {
   min-height: 42px;
   padding: 0.65rem 1rem;
   border: 1px solid var(--ink);
-  border-radius: 2px;
+  border-radius: 0;
   background: var(--paper);
   color: var(--ink);
   cursor: pointer;
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
   transition:
@@ -294,9 +313,9 @@ h2 {
 
 .button-primary {
   border-color: var(--blue);
-  background: var(--blue);
-  box-shadow: 3px 3px 0 var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--blue);
+  color: var(--blue);
 }
 
 .button:not(:disabled):active {
@@ -317,7 +336,7 @@ h2 {
 }
 
 .button-quiet {
-  border-color: var(--line);
+  border-color: var(--face);
   background: var(--field);
 }
 
@@ -377,20 +396,13 @@ h2 {
   font-weight: 400;
 }
 
-.preview-blue {
-  color: var(--blue);
-}
-
-.preview-red {
-  color: var(--red);
-}
-
-.preview-amber {
-  color: var(--amber-ink);
-}
-
+/* Temporarily flattened to one accent — restore --red/--amber-ink/--green
+   on the individual rules to bring the per-path colours back. */
+.preview-blue,
+.preview-red,
+.preview-amber,
 .preview-green {
-  color: var(--green);
+  color: var(--blue);
 }
 
 .question-view {
@@ -417,9 +429,9 @@ h2 {
 
 .progress-track {
   overflow: hidden;
-  height: 3px;
+  height: 6px;
   margin-top: 0.55rem;
-  border: 1px solid var(--soft-line);
+  border: 1px solid var(--blue);
   background: var(--paper);
 }
 
@@ -517,13 +529,14 @@ h2 {
 
 .answer-option input:checked + .option-content {
   border-color: var(--blue);
-  background: var(--field);
+  background: var(--blue);
   box-shadow: inset 4px 0 0 var(--blue);
+  color: var(--paper);
   transition: transform var(--motion-fast);
 }
 
 .answer-option input:checked + .option-content .option-letter {
-  border-color: var(--blue);
+  border-color: var(--paper);
   background: var(--blue);
   color: var(--paper);
 }
@@ -542,20 +555,12 @@ h2 {
   border-top: 1px solid var(--soft-line);
 }
 
-.result-view {
-  --result-accent: var(--blue);
-}
-
-.result-red {
-  --result-accent: var(--red);
-}
-
-.result-amber {
-  --result-accent: var(--amber-ink);
-}
-
+/* Temporarily flattened to one accent — see .preview-* above. */
+.result-view,
+.result-red,
+.result-amber,
 .result-green {
-  --result-accent: var(--green);
+  --result-accent: var(--blue);
 }
 
 .result-hero {
