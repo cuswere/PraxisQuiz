@@ -107,7 +107,7 @@ body[data-view="question"] .quiz-shell {
   justify-content: space-between;
   padding: 6px 10px;
   border-bottom: 1px solid var(--line);
-  background: var(--field);
+  background: var(--face);
 }
 
 .praxis-wordmark {
@@ -134,7 +134,6 @@ body[data-view="question"] .quiz-shell {
 .quiz-mark {
   padding: 6px 8px 5px;
   border: 1px solid var(--paper);
-  background: var(--face);
   color: var(--paper);
   font-family: var(--mono);
   font-size: 0.82rem;
