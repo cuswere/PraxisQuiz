@@ -13,6 +13,8 @@
   --amber: #ffc962;
   --amber-ink: #795000;
   --green: #2f9229;
+  --motion-fast: 125ms steps(3, end);
+  --motion-standard: 208.333ms steps(5, end);
   --serif: Georgia, "Times New Roman", serif;
   --sans: Arial, Helvetica, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -28,7 +30,7 @@ html {
   color: var(--ink);
   font-family: var(--sans);
   scrollbar-gutter: stable both-edges;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -101,18 +103,22 @@ body[data-view="question"] .quiz-shell {
 
 .quiz-brandbar {
   display: flex;
-  min-height: 46px;
-  flex: 0 0 46px;
+  overflow: hidden;
+  min-height: 47px;
+  flex: 0 0 47px;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 10px;
+  padding: 0px;
   border-bottom: 1px solid var(--line);
-  background: var(--ink);
+  background: var(--face);
 }
 
 .praxis-wordmark {
   display: inline-flex;
-  align-items: stretch;
+  align-self: stretch;
+  align-items: center;
+  padding-inline: 9px;
+  background: var(--paper);
   color: var(--ink);
   font-size: 1.05rem;
   font-weight: 600;
@@ -121,29 +127,43 @@ body[data-view="question"] .quiz-shell {
   text-decoration: none;
 }
 
+.praxis-mark,
+.quiz-mark {
+  display: inline-flex;
+  block-size: 28px;
+  align-items: center;
+}
+
 .praxis-mark {
-  padding: 6px 7px 5px;
+  padding-inline: 4px;
   border-radius: 4px 0 0 4px;
   background: var(--paper);
   color: var(--praxis-blue);
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
 .quiz-mark {
-  padding: 6px 8px 5px;
-  border: 1px solid var(--paper);
+  padding-inline: 6px;
+  border: 0;
+  background: var(--face);
   color: var(--paper);
   font-family: var(--mono);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
+  font-weight: bold;
   letter-spacing: 0;
-  text-shadow: 0 0 3px var(--paper);
 }
 
-.praxis-wordmark:hover .praxis-mark {
+.praxis-mark:hover {
   text-decoration: underline;
   text-decoration-thickness: 2px;
+}
+
+.praxis-mark:focus-visible {
+  outline-color: var(--paper);
+  outline-offset: -3px;
 }
 
 .brandbar-note,
@@ -157,9 +177,10 @@ body[data-view="question"] .quiz-shell {
 }
 
 .brandbar-note {
-  color: var(--paper);
+  color: var(--ink);
   font-size: 0.67rem;
   letter-spacing: 0.08em;
+  padding-right: 9px;
 }
 
 #app {
@@ -265,14 +286,10 @@ h2 {
   font-weight: 700;
   text-decoration: none;
   transition:
-    transform 100ms ease,
-    box-shadow 100ms ease,
-    background-color 100ms ease,
-    color 100ms ease;
-}
-
-.button:not(:disabled):hover {
-  transform: translate(-1px, -1px);
+    transform var(--motion-fast),
+    box-shadow var(--motion-fast),
+    background-color var(--motion-fast),
+    color var(--motion-fast);
 }
 
 .button-primary {
@@ -282,14 +299,13 @@ h2 {
   color: var(--paper);
 }
 
-.button-primary:not(:disabled):hover {
-  background: var(--blue);
-  box-shadow: 4px 4px 0 var(--ink);
+.button:not(:disabled):active {
+  transition-duration: 0s;
+  transform: translate(2px, 2px);
 }
 
 .button-primary:not(:disabled):active {
   box-shadow: 1px 1px 0 var(--ink);
-  transform: translate(2px, 2px);
 }
 
 .button-primary:disabled {
@@ -411,7 +427,7 @@ h2 {
   display: block;
   height: 100%;
   background: var(--blue);
-  transition: width 220ms ease;
+  transition: width var(--motion-standard);
 }
 
 .question-card {
@@ -473,9 +489,9 @@ h2 {
   font-size: 0.9rem;
   line-height: 1.4;
   transition:
-    border-color 100ms ease,
-    background-color 100ms ease,
-    transform 100ms ease;
+    border-color var(--motion-fast),
+    background-color var(--motion-fast),
+    transform var(--motion-fast);
 }
 
 .option-letter {
@@ -501,14 +517,20 @@ h2 {
 
 .answer-option input:checked + .option-content {
   border-color: var(--blue);
-  background: color-mix(in srgb, var(--blue) 6%, var(--paper));
+  background: var(--field);
   box-shadow: inset 4px 0 0 var(--blue);
+  transition: transform var(--motion-fast);
 }
 
 .answer-option input:checked + .option-content .option-letter {
   border-color: var(--blue);
   background: var(--blue);
   color: var(--paper);
+}
+
+.answer-option:hover .option-content {
+  /* Enter immediately; the resting or checked state controls the animated exit. */
+  transition-duration: 0s;
 }
 
 .question-actions {
@@ -751,9 +773,9 @@ h2 {
   background: var(--paper);
   text-decoration: none;
   transition:
-    transform 100ms ease,
-    box-shadow 100ms ease,
-    color 100ms ease;
+    transform var(--motion-fast),
+    box-shadow var(--motion-fast),
+    color var(--motion-fast);
 }
 
 .course-roadmap li:last-child a {
@@ -764,6 +786,7 @@ h2 {
   z-index: 3;
   box-shadow: 3px 3px 0 var(--result-accent);
   color: var(--result-accent);
+  transition-duration: 0s;
   transform: translate(-2px, -2px);
 }
 
@@ -809,7 +832,7 @@ h2 {
 }
 
 .view-enter {
-  animation: view-in 220ms ease both;
+  animation: view-in var(--motion-standard) both;
 }
 
 @keyframes view-in {
@@ -920,8 +943,8 @@ h2 {
   }
 
   .quiz-brandbar {
-    min-height: 42px;
-    flex-basis: 42px;
+    min-height: 43px;
+    flex-basis: 43px;
   }
 
   .intro-copy {

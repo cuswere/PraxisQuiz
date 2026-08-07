@@ -71,7 +71,33 @@
       const heading = app.querySelector("[data-focus-heading]");
       heading?.focus({ preventScroll: true });
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      if (reduceMotion || window.scrollY === 0) {
+        window.scrollTo({ top: 0, behavior: "auto" });
+        return;
+      }
+
+      const startY = window.scrollY;
+      const duration = (1000 / 24) * 5;
+      const frameInterval = 1000 / 24;
+      const startTime = performance.now();
+      let lastPaint = -frameInterval;
+
+      function scrollFrame(now) {
+        const elapsed = Math.min(now - startTime, duration);
+
+        if (now - lastPaint >= frameInterval || elapsed === duration) {
+          const progress = elapsed / duration;
+          const eased = 1 - (1 - progress) ** 3;
+          window.scrollTo(0, Math.round(startY * (1 - eased)));
+          lastPaint = now;
+        }
+
+        if (elapsed < duration) {
+          window.requestAnimationFrame(scrollFrame);
+        }
+      }
+
+      window.requestAnimationFrame(scrollFrame);
     });
   }
 
