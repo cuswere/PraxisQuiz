@@ -5,7 +5,7 @@
   --paper: #ffffff;
   --ink: #101010;
   --muted: #565656;
-  --line: #1a1a1a;
+  --line: #101010;
   --soft-line: #c8c8c3;
   --blue: #1010ff;
   --praxis-blue: #1f9cf0;
@@ -131,6 +131,7 @@ body[data-view="question"] .quiz-shell {
   align-self: stretch;
   align-items: center;
   padding-inline: 9px;
+  border-right: 1px solid var(--ink);
   background: var(--field);
   color: var(--ink);
   font-size: 1.05rem;
@@ -138,7 +139,6 @@ body[data-view="question"] .quiz-shell {
   letter-spacing: -0.04em;
   line-height: 1;
   text-decoration: none;
-  border-right: 1px solid var(--ink);
 }
 
 .praxis-mark,
@@ -151,6 +151,7 @@ body[data-view="question"] .quiz-shell {
 .praxis-mark {
   padding-inline: 4px;
   border: 1px solid var(--praxis-blue);
+  border-right: 0;
   border-radius: 4px 0 0 4px;
   background: var(--paper);
   color: var(--praxis-blue);
@@ -163,7 +164,8 @@ body[data-view="question"] .quiz-shell {
 .quiz-mark {
   padding-inline: 6px;
   border: 0;
-  color: var(--ink);
+  background: var(--blue);
+  color: var(--paper);
   font-family: var(--mono);
   font-size: 0.85rem;
   font-weight: normal;
@@ -195,11 +197,11 @@ body[data-view="question"] .quiz-shell {
   z-index: 6;
   align-self: flex-start;
   padding: 4px;
+  border: 1px solid var(--ink);
   background: var(--field);
   color: var(--ink);
   font-size: 0.85rem;
   letter-spacing: 0.08em;
-  border: 1px solid var(--ink);
 }
 
 #app {
@@ -238,10 +240,10 @@ body[data-view="question"] .quiz-shell {
 }
 
 .eyebrow::before {
-  width: 26px;
-  height: 2px;
-  background: currentColor;
-  content: "";
+  content: "+";
+  font-size: 1.3em;
+  font-weight: 400;
+  line-height: 1;
 }
 
 h1,
@@ -365,9 +367,12 @@ h2 {
 .path-preview ol {
   position: relative;
   z-index: 1;
-  margin: 1.3rem 0;
+  margin: 1rem 0;
   padding: 0;
   list-style: none;
+  border: 1px solid var(--blue);
+  border-bottom: 0;
+  margin-top: 0;
 }
 
 .preview-path {
@@ -375,7 +380,7 @@ h2 {
   align-items: center;
   gap: 0.75rem;
   padding: 0.9rem 0;
-  border-bottom: 1px solid #c2c2bd;
+  border-bottom: 1px solid var(--blue);
   grid-template-columns: 30px 1fr;
 }
 
@@ -396,20 +401,15 @@ h2 {
   font-weight: 400;
 }
 
-.preview-blue {
-  color: var(--blue);
-}
-
-.preview-red {
-  color: var(--red);
-}
-
-.preview-amber {
-  color: var(--amber-ink);
-}
-
+/* Temporarily flattened to one accent — restore --red/--amber-ink/--green
+   on the individual rules to bring the per-path colours back. */
+.preview-blue,
+.preview-red,
+.preview-amber,
 .preview-green {
-  color: var(--green);
+  color: var(--blue);
+  background: var(--paper);
+  padding: 14px;
 }
 
 .question-view {
@@ -562,20 +562,12 @@ h2 {
   border-top: 1px solid var(--soft-line);
 }
 
-.result-view {
-  --result-accent: var(--blue);
-}
-
-.result-red {
-  --result-accent: var(--red);
-}
-
-.result-amber {
-  --result-accent: var(--amber-ink);
-}
-
+/* Temporarily flattened to one accent — see .preview-* above. */
+.result-view,
+.result-red,
+.result-amber,
 .result-green {
-  --result-accent: var(--green);
+  --result-accent: var(--blue);
 }
 
 .result-hero {
@@ -982,6 +974,7 @@ h2 {
   .path-preview ol {
     display: block;
     margin: 1.1rem 0;
+    margin-top: 0;
   }
 
   .question-view {

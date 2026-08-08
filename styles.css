@@ -151,6 +151,7 @@ body[data-view="question"] .quiz-shell {
 .praxis-mark {
   padding-inline: 4px;
   border: 1px solid var(--praxis-blue);
+  border-right: 0;
   border-radius: 4px 0 0 4px;
   background: var(--paper);
   color: var(--praxis-blue);
@@ -163,7 +164,8 @@ body[data-view="question"] .quiz-shell {
 .quiz-mark {
   padding-inline: 6px;
   border: 0;
-  color: var(--ink);
+  background: var(--blue);
+  color: var(--paper);
   font-family: var(--mono);
   font-size: 0.85rem;
   font-weight: normal;
@@ -233,8 +235,10 @@ body[data-view="question"] .quiz-shell {
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  color: var(--blue);
+  gap: 6px;
+  color: var(--paper);
+  background: var(--blue);
+  padding: 4px;
 }
 
 .eyebrow::before {
@@ -365,8 +369,10 @@ h2 {
 .path-preview ol {
   position: relative;
   z-index: 1;
-  margin: 1.3rem 0;
+  margin: 0 0 1rem;
   padding: 0;
+  border: 1px solid var(--blue);
+  border-bottom: 0;
   list-style: none;
 }
 
@@ -375,7 +381,7 @@ h2 {
   align-items: center;
   gap: 0.75rem;
   padding: 0.9rem 0;
-  border-bottom: 1px solid #c2c2bd;
+  border-bottom: 1px solid var(--blue);
   grid-template-columns: 30px 1fr;
 }
 
@@ -402,6 +408,8 @@ h2 {
 .preview-red,
 .preview-amber,
 .preview-green {
+  padding: 14px;
+  background: var(--paper);
   color: var(--blue);
 }
 
@@ -579,7 +587,7 @@ h2 {
 
 .result-kicker p {
   margin: 0;
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.09em;
 }
@@ -966,7 +974,7 @@ h2 {
 
   .path-preview ol {
     display: block;
-    margin: 1.1rem 0;
+    margin: 0 0 1.1rem;
   }
 
   .question-view {
@@ -1116,4 +1124,12 @@ h2 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+
+p.preview-label {
+    padding: 4px;
+    background: var(--blue);
+    color: var(--paper);
+    padding-left: 18px;
 }
