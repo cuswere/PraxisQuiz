@@ -17,7 +17,7 @@
      one (jump-start) instead of idling a frame first. Animated distances are
      sized so every frame lands on a whole pixel: 2 frames => 2px, 4 frames => 4px. */
   --motion-fast: 83.333ms steps(2, jump-start);
-  --motion-standard: 250ms steps(4, jump-start);
+  --motion-standard: 350ms steps(4, jump-start);
   --serif: Georgia, "Times New Roman", serif;
   --sans: Arial, Helvetica, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
