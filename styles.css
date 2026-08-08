@@ -486,9 +486,9 @@ h2 {
 .progress-copy {
   display: flex;
   justify-content: space-between;
-  color: var(--muted);
-  font-size: 0.64rem;
-  font-weight: 700;
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: normal;
   letter-spacing: 0.08em;
 }
 
@@ -542,12 +542,6 @@ h2 {
   font-size: clamp(2rem, 3.4vw, 3.15rem);
   letter-spacing: -0.035em;
   line-height: 1.04;
-}
-
-.question-hint {
-  margin: 0.65rem 0 0;
-  color: var(--muted);
-  font-size: 0.84rem;
 }
 
 .answer-grid {

@@ -171,7 +171,6 @@
             <legend data-focus-heading tabindex="-1" class="question-title">
               ${escapeHtml(question.prompt)}
             </legend>
-            <p class="question-hint">Select one answer.</p>
             <div class="answer-grid">
               ${question.answers
                 .map(
