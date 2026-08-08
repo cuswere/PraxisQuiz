@@ -76,9 +76,12 @@
         return;
       }
 
+      // Mirrors --motion-standard: 4 frames on the 24fps grid, linear so every
+      // frame covers the same whole-pixel distance, and the first painted frame
+      // already moves (the jump-start equivalent).
       const startY = window.scrollY;
-      const duration = (1000 / 24) * 5;
       const frameInterval = 1000 / 24;
+      const duration = frameInterval * 4;
       const startTime = performance.now();
       let lastPaint = -frameInterval;
 
@@ -86,9 +89,8 @@
         const elapsed = Math.min(now - startTime, duration);
 
         if (now - lastPaint >= frameInterval || elapsed === duration) {
-          const progress = elapsed / duration;
-          const eased = 1 - (1 - progress) ** 3;
-          window.scrollTo(0, Math.round(startY * (1 - eased)));
+          const progress = Math.min((elapsed + frameInterval) / duration, 1);
+          window.scrollTo(0, Math.round(startY * (1 - progress)));
           lastPaint = now;
         }
 
@@ -153,6 +155,7 @@
           </div>
           <div
             class="progress-track"
+            style="--progress-steps: ${content.questions.length}"
             role="progressbar"
             aria-valuemin="1"
             aria-valuemax="${content.questions.length}"
@@ -244,7 +247,7 @@
       <article class="result-view result-${escapeHtml(path.accent)} view-enter">
         <header class="result-hero">
           <div class="result-kicker">
-            <span class="result-symbol" aria-hidden="true">✦</span>
+            <span class="result-symbol" aria-hidden="true"></span>
             <p>Your recommended career path</p>
           </div>
           <h1 data-focus-heading tabindex="-1">${escapeHtml(path.title)}</h1>
@@ -313,8 +316,32 @@
     announce(`Your recommended path is ${path.title}.`);
   }
 
+  // Fills the two mobile-only brandbar slots. Both are hidden above 700px, but
+  // they're kept in sync regardless so a resize never shows stale content.
+  function updateBrandbar() {
+    const progress = document.querySelector("[data-brandbar-progress]");
+    if (progress) {
+      // One cell per question, filled up to the current one. Decorative: the
+      // question view's own progressbar stays the accessible source of truth.
+      progress.innerHTML =
+        state.view === "question"
+          ? content.questions
+              .map((_, index) => `<i${index <= state.questionIndex ? ' class="is-done"' : ""}></i>`)
+              .join("")
+          : "";
+    }
+
+    const pathSlot = document.querySelector("[data-brandbar-path]");
+    if (pathSlot) {
+      pathSlot.textContent =
+        state.view === "result" ? content.paths[determinePath(state.answers)].shortTitle : "";
+    }
+  }
+
   function render({ focus = false } = {}) {
     document.body.dataset.view = state.view;
+    updateBrandbar();
+
     if (state.view === "intro") {
       renderIntro();
     } else if (state.view === "question") {
