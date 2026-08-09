@@ -223,6 +223,7 @@ body[data-view="question"] .quiz-shell {
   display: none;
   align-self: center;
   border: 0;
+  padding-right: 8px;
 }
 
 /* One cell per question, mirroring the segmented progress track. */
@@ -681,8 +682,15 @@ h2 {
   grid-template-columns: minmax(0, 1.1fr) minmax(330px, 0.9fr);
 }
 
+/* width: 100% is load-bearing. aspect-ratio resolves in whichever axis is left
+   auto, so with a definite min-height and an auto width it derived width from
+   height (360 * 16/9 = 640px) and overflowed the grid track, painting the black
+   placeholder over the fit-card's black body copy. Pinning the width to the
+   track forces the ratio to resolve height instead. */
 .video-placeholder,
 .video-frame {
+  width: 100%;
+  min-width: 0;
   min-height: 360px;
   aspect-ratio: 16 / 9;
 }
@@ -1058,8 +1066,25 @@ h2 {
     margin: 0 0 1.1rem;
   }
 
+  /* At 375x667 the answers overflow a shell that is pinned to the viewport and
+     can't scroll, so the actions end up clipped. Let the shell grow and the page
+     scroll instead, then keep the buttons pinned to the bottom of the viewport
+     so they're reachable without scrolling at all. */
+  body[data-view="question"] .quiz-shell {
+    overflow: visible;
+    height: auto;
+  }
+
   .question-view {
+    height: auto;
     padding: 1.6rem 1rem;
+  }
+
+  .question-actions {
+    position: sticky;
+    bottom: 0;
+    padding-bottom: 1rem;
+    background: var(--paper);
   }
 
   .question-card {
@@ -1170,7 +1195,10 @@ h2 {
     display: none;
   }
 
+  /* The base rule drops the right border so the badge butts against .quiz-mark.
+     That's hidden here, so the badge needs closing off again. */
   .praxis-mark {
+    border-right: 1px solid var(--praxis-blue);
     border-radius: 4px;
   }
 
