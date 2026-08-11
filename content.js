@@ -189,7 +189,7 @@
         title: "Gallery & Institutional Career",
         shortTitle: "Gallery & Institutional",
         accent: "blue",
-        videoEmbedUrl: "",
+        videoEmbedUrl: "https://player.vimeo.com/video/1217096812",
         description:
           "Build sustained relationships with galleries, curators, and arts institutions.",
         why:
@@ -211,7 +211,7 @@
         title: "Collector-Led Studio",
         shortTitle: "Collector-Led Studio",
         accent: "red",
-        videoEmbedUrl: "",
+        videoEmbedUrl: "https://player.vimeo.com/video/1217096696",
         description:
           "Build direct relationships between your studio practice and the people who want to collect your work.",
         why:
@@ -233,7 +233,7 @@
         title: "Funded Project Practice",
         shortTitle: "Funded Projects",
         accent: "amber",
-        videoEmbedUrl: "",
+        videoEmbedUrl: "https://player.vimeo.com/video/1217096456",
         description:
           "Turn a defined artistic idea into a project that funders, patrons, and sponsors can support.",
         why:
@@ -256,7 +256,7 @@
         title: "Independent Visibility Practice",
         shortTitle: "Independent Visibility",
         accent: "green",
-        videoEmbedUrl: "",
+        videoEmbedUrl: "https://player.vimeo.com/video/1217096218",
         description:
           "Build public visibility through clear positioning, consistent communication, and self-directed opportunities.",
         why:
