@@ -131,9 +131,11 @@ body[data-view="question"] .quiz-shell {
   position: relative;
   z-index: 6;
   display: inline-flex;
+  flex: none;
   align-self: stretch;
   align-items: center;
   padding-inline: 9px;
+  white-space: nowrap;
   border-right: 1px solid var(--ink);
   background: var(--field);
   color: var(--ink);
@@ -983,6 +985,12 @@ h2 {
     border-left: 0;
   }
 
+  /* The arc is sized for the tall right-hand column; in the stacked band it
+     reads as a stray line, so drop it. */
+  .path-preview::before {
+    display: none;
+  }
+
   .path-preview ol {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1023,31 +1031,34 @@ h2 {
 
   .page-shell {
     width: min(100% - 18px, 1180px);
-    margin: 9px auto;
+    margin: 0px auto;
   }
 
   .quiz-shell {
     min-height: 0;
   }
 
-  /* The full note doesn't fit, so the bar carries a shortened tagline instead --
-     and swaps to the question counter while the quiz is running. */
+  /* Mobile carries the wordmark alone: the note and its mobile stand-ins are all
+     dropped (the base rule already hides the stand-ins), and the bar itself goes
+     invisible so the frame wraps only the content box below it. */
   .brandbar-note {
     display: none;
-  }
-
-  body[data-view="intro"] .brandbar-note-short,
-  body[data-view="result"] .brandbar-path {
-    display: block;
-  }
-
-  body[data-view="question"] .brandbar-progress {
-    display: flex;
   }
 
   .quiz-brandbar {
     min-height: 43px;
     flex-basis: 43px;
+    border-bottom: 0;
+    background: var(--face-light);
+  }
+
+  .praxis-wordmark {
+    border-right: 0;
+    background: transparent;
+  }
+
+  .quiz-shell::before {
+    inset: 43px 0 0 0;
   }
 
   .intro-copy {
@@ -1192,17 +1203,6 @@ h2 {
 }
 
 @media (max-width: 430px) {
-  .quiz-mark {
-    display: none;
-  }
-
-  /* The base rule drops the right border so the badge butts against .quiz-mark.
-     That's hidden here, so the badge needs closing off again. */
-  .praxis-mark {
-    border-right: 1px solid var(--praxis-blue);
-    border-radius: 4px;
-  }
-
   .progress-copy span:last-child {
     display: none;
   }
