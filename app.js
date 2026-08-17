@@ -128,7 +128,7 @@
                 const path = content.paths[pathId];
                 return `
                   <li class="preview-path preview-${escapeHtml(path.accent)}">
-                    <span>${String(index + 1).padStart(2, "0")}</span>
+                    <span>${index + 1}</span>
                     <strong>${escapeHtml(path.shortTitle)}</strong>
                   </li>
                 `;
@@ -256,7 +256,7 @@
         <div class="result-story-grid">
           ${renderVideo(path)}
           <section class="fit-card" aria-labelledby="why-heading">
-            <p class="section-number">01 / Your direction</p>
+            <p class="section-number">1 / Your direction</p>
             <h2 id="why-heading">Why this path fits your answers</h2>
             <p>${escapeHtml(path.why)}</p>
             <ul>
@@ -270,7 +270,7 @@
         <section class="roadmap-section" aria-labelledby="roadmap-heading">
           <div class="section-heading-row">
             <div>
-              <p class="section-number">02 / Your Praxis roadmap</p>
+              <p class="section-number">2 / Your Praxis roadmap</p>
               <h2 id="roadmap-heading">Take these courses in order</h2>
             </div>
           </div>
@@ -281,7 +281,7 @@
                 (item, index) => `
                   <li>
                     <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
-                      <span class="course-number">${String(index + 1).padStart(2, "0")}</span>
+                      <span class="course-number">${index + 1}</span>
                       <span class="course-title">${escapeHtml(item.title)}</span>
                       <span class="course-link-label">Open course <span aria-hidden="true">↗</span></span>
                     </a>
