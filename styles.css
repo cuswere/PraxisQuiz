@@ -632,6 +632,65 @@ h2 {
   border-top: 1px solid var(--soft-line);
 }
 
+.signup-view {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.signup-view h1 {
+  margin-top: 1.25rem;
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.signup-form {
+  margin-top: 2rem;
+}
+
+.signup-fields {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.signup-fields label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.signup-fields input {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0.75rem;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.signup-note {
+  margin: 1rem 0 1.5rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.signup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--soft-line);
+}
+
 /* Temporarily flattened to one accent — see .preview-* above. */
 .result-view,
 .result-red,

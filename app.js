@@ -46,6 +46,7 @@
     view: "intro",
     questionIndex: 0,
     answers: {},
+    resultId: null,
   };
 
   let app;
@@ -203,13 +204,61 @@
               type="submit"
               ${selectedPath ? "" : "disabled"}
             >
-              ${state.questionIndex === content.questions.length - 1 ? "See my path" : "Continue"}
+              Continue
               <span aria-hidden="true">→</span>
             </button>
           </div>
         </form>
       </div>
     `;
+  }
+
+  function renderSignup() {
+    // Keep the result in the return URL, without putting names, emails, or
+    // individual answers in browser storage or the URL. This also works when
+    // storage is unavailable in an in-app browser.
+    const returnUrl = new URL(window.location.href);
+    returnUrl.hash = `quiz-result=${determinePath(state.answers)}`;
+
+    app.innerHTML = `
+      <section class="signup-view view-enter" aria-labelledby="signup-heading">
+        <p class="eyebrow">Quiz complete · One more option</p>
+        <h1 id="signup-heading" data-focus-heading tabindex="-1">Your path is ready.</h1>
+        <p class="lede" id="signup-description">Stay connected with Praxis. Sign up for emails with guidance and resources for your art career, then see your recommended path.</p>
+
+        <form class="signup-form" data-signup-form method="post" accept-charset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl" aria-describedby="signup-description signup-consent">
+          <input type="hidden" name="meta_web_form_id" value="438465428" />
+          <input type="hidden" name="meta_split_id" value="" />
+          <input type="hidden" name="listname" value="awlist4417398" />
+          <input type="hidden" name="redirect" value="${escapeHtml(returnUrl.href)}" />
+          <input type="hidden" name="meta_redirect_onlist" value="${escapeHtml(returnUrl.href)}" />
+          <input type="hidden" name="meta_adtracking" value="Praxis_Quiz" />
+          <input type="hidden" name="meta_message" value="1" />
+          <input type="hidden" name="meta_required" value="name,email" />
+          <input type="hidden" name="meta_tooltip" value="" />
+
+          <div class="signup-fields">
+            <label for="signup-name">Name
+              <input id="signup-name" name="name" type="text" autocomplete="name" required pattern=".*\\S.*" />
+            </label>
+            <label for="signup-email">Email address
+              <input id="signup-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required />
+            </label>
+          </div>
+          <p class="signup-note" id="signup-consent">By signing up, you agree to receive emails from Praxis Center. You can unsubscribe at any time.</p>
+          <button class="button button-primary" type="submit">Sign up &amp; see my path <span aria-hidden="true">→</span></button>
+        </form>
+
+        <div class="signup-actions">
+          <button class="button button-quiet" type="button" data-action="signup-back"><span aria-hidden="true">←</span> Back to quiz</button>
+          <button class="button button-quiet" type="button" data-action="skip-signup">Skip &amp; see my path <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+    `;
+  }
+
+  function currentResultId() {
+    return state.resultId || determinePath(state.answers);
   }
 
   function renderVideo(path) {
@@ -238,7 +287,7 @@
   }
 
   function renderResult() {
-    const resultId = determinePath(state.answers);
+    const resultId = currentResultId();
     const path = content.paths[resultId];
     const firstCourse = path.courses[0];
 
@@ -333,7 +382,7 @@
     const pathSlot = document.querySelector("[data-brandbar-path]");
     if (pathSlot) {
       pathSlot.textContent =
-        state.view === "result" ? content.paths[determinePath(state.answers)].shortTitle : "";
+        state.view === "result" ? content.paths[currentResultId()].shortTitle : "";
     }
   }
 
@@ -345,6 +394,8 @@
       renderIntro();
     } else if (state.view === "question") {
       renderQuestion();
+    } else if (state.view === "signup") {
+      renderSignup();
     } else {
       renderResult();
     }
@@ -374,11 +425,22 @@
     state.view = "intro";
     state.questionIndex = 0;
     state.answers = {};
+    state.resultId = null;
+    if (window.location.hash.startsWith("#quiz-result=")) {
+      const url = new URL(window.location.href);
+      url.hash = "";
+      window.history.replaceState(null, "", url.href);
+    }
     announce("Quiz restarted. Your previous answers have been cleared.");
     render({ focus: true });
   }
 
   function handleSubmit(event) {
+    // AWeber handles validation errors and redirects successful and existing
+    // subscribers back here. Let the browser submit directly; a cross-origin
+    // fetch would not provide a readable success response.
+    if (event.target.matches("[data-signup-form]")) return;
+    if (!event.target.matches("[data-question-form]")) return;
     event.preventDefault();
     const question = content.questions[state.questionIndex];
     if (!state.answers[question.id]) return;
@@ -388,7 +450,8 @@
       announce(`Question ${state.questionIndex + 1} of ${content.questions.length}.`);
       render({ focus: true });
     } else {
-      state.view = "result";
+      state.view = "signup";
+      announce("Quiz complete. You can sign up for Praxis emails or skip to your path.");
       render({ focus: true });
     }
   }
@@ -409,6 +472,14 @@
     if (action === "start") startQuiz();
     if (action === "back") goBack();
     if (action === "restart") restartQuiz();
+    if (action === "signup-back") {
+      state.view = "question";
+      render({ focus: true });
+    }
+    if (action === "skip-signup") {
+      state.view = "result";
+      render({ focus: true });
+    }
   }
 
   function init() {
@@ -416,10 +487,16 @@
     announcer = document.getElementById("announcer");
     if (!app || !announcer || !content) return;
 
+    const returnPath = new URLSearchParams(window.location.hash.slice(1)).get("quiz-result");
+    if (content.pathOrder.includes(returnPath)) {
+      state.resultId = returnPath;
+      state.view = "result";
+    }
+
     app.addEventListener("click", handleClick);
     app.addEventListener("change", handleChange);
     app.addEventListener("submit", handleSubmit);
-    render();
+    render({ focus: state.view === "result" });
   }
 
   if (document.readyState === "loading") {
