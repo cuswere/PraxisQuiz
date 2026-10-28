@@ -67,6 +67,7 @@ for (const result of ['gallery', 'collector', 'funded', 'independent']) {
     for (const [name, value] of Object.entries({
       meta_web_form_id: '438465428', listname: 'awlist4417398',
       meta_adtracking: 'Praxis_Quiz', meta_required: 'name,email', meta_message: '1',
+      meta_tags: `praxis-quiz,quiz-result-${result}`,
     })) {
       assert.ok(quiz.app.innerHTML.includes(`name="${name}" value="${value}"`));
     }

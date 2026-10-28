@@ -217,8 +217,9 @@
     // Keep the result in the return URL, without putting names, emails, or
     // individual answers in browser storage or the URL. This also works when
     // storage is unavailable in an in-app browser.
+    const resultId = determinePath(state.answers);
     const returnUrl = new URL(window.location.href);
-    returnUrl.hash = `quiz-result=${determinePath(state.answers)}`;
+    returnUrl.hash = `quiz-result=${resultId}`;
 
     app.innerHTML = `
       <section class="signup-view view-enter" aria-labelledby="signup-heading">
@@ -233,6 +234,7 @@
           <input type="hidden" name="redirect" value="${escapeHtml(returnUrl.href)}" />
           <input type="hidden" name="meta_redirect_onlist" value="${escapeHtml(returnUrl.href)}" />
           <input type="hidden" name="meta_adtracking" value="Praxis_Quiz" />
+          <input type="hidden" name="meta_tags" value="praxis-quiz,quiz-result-${escapeHtml(resultId)}" />
           <input type="hidden" name="meta_message" value="1" />
           <input type="hidden" name="meta_required" value="name,email" />
           <input type="hidden" name="meta_tooltip" value="" />
